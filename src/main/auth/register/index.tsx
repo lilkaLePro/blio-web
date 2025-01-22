@@ -1,14 +1,48 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
+interface IUser {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
 
 export const Register = () => {
+  const router = useNavigate();
+
+  const [values, setValues] = useState({ firstname: "", lastname: "", email: "", password: "" })
+  const mutation = useMutation({
+    mutationKey: ['register'],
+    mutationFn: async (formData: IUser) => {      
+      const response = await fetch('http://localhost:4000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      if (!response.ok) {
+        throw new Error('Failed to create hackathon');
+    }
+    if(response.ok){
+        setValues({firstname: "", lastname: "", email: "", password: ""})
+        router('/dashboard')
+    }
+    const data = await response.json();;
+    return data;
+    }
+  })
   return (
     <>
       <Formik
-        initialValues={{ firstname: "", lastname: "", email: "", password: "" }}
-        onSubmit={(value) => {
-          console.log(value);
+        initialValues={values}
+        onSubmit={(values) => {
+          mutation.mutate(values);
         }}
       >
         {({ values, errors, handleChange, handleSubmit }) => (
