@@ -1,9 +1,11 @@
-interface Values {
+export interface IUser {
+  firstname?: string;
+  lastname?: string;
   email: string;
   password: string;
 }
 
-export const validate = async (values: Values) => {
+export const validate = async (values: IUser) => {
   const errors = {
     email: "",
     password: ""

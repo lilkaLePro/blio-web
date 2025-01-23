@@ -1,16 +1,42 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { Formik } from "formik";
-import { validate } from "../utils";
+import { IUser, validate } from "../utils";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
+  const router = useNavigate();
+
+  const [values, setValues] = useState({ email: "", password: "" })
+  const mutation = useMutation({
+    mutationKey: ['login'],
+    mutationFn: async (formData: IUser) => {
+      const response = await fetch('https://blio-teck.onrender.com/api/auth/login', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData),
+      })
+      if(!response.ok) {
+        throw new Error('Failed to connectUser');
+      }
+      if(response.ok) {
+        setValues({email: '', password: ''})
+        router('/dashboard');
+      }
+      const data = await response.json();
+      return data;
+    }
+  })
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        validate={validate}
+        initialValues={values}
         onSubmit={(values) => {
-          console.log("welcom enens", values);
+          mutation.mutate(values)
         }}
       >
         {({ values, errors, handleChange, handleSubmit }) => (

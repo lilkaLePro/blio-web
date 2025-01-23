@@ -4,13 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
-interface IUser {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-}
+import { IUser, validate } from "../utils";
 
 export const Register = () => {
   const router = useNavigate();
@@ -27,13 +21,13 @@ export const Register = () => {
         body: JSON.stringify(formData)
       })
       if (!response.ok) {
-        throw new Error('Failed to create hackathon');
+        throw new Error('Failed to create user');
     }
     if(response.ok){
         setValues({firstname: "", lastname: "", email: "", password: ""})
         router('/dashboard')
     }
-    const data = await response.json();;
+    const data = await response.json();
     return data;
     }
   })
