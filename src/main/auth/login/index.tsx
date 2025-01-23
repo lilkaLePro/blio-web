@@ -1,10 +1,11 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { Formik } from "formik";
-import { IUser, validate } from "../utils";
+import { IUser } from "../utils";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { BASE_URL } from "@/lib/utils";
 
 export const Login = () => {
   const router = useNavigate();
@@ -13,7 +14,7 @@ export const Login = () => {
   const mutation = useMutation({
     mutationKey: ['login'],
     mutationFn: async (formData: IUser) => {
-      const response = await fetch('https://blio-teck.onrender.com/api/auth/login', {
+      const response = await fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -44,7 +45,8 @@ export const Login = () => {
             <div className="max-w-md w-full flex flex-col gap-3 bg-muted p-10 rounded-r-lg ">
                 <p> CONNEXION </p>
                   <Input
-                    placeholder="Email"
+                    placeholder="Entrez votre Email"
+                    label="Email"
                     value={values.email}
                     onChange={handleChange}
                     name="email"
@@ -52,7 +54,8 @@ export const Login = () => {
                     erroText={errors.email}
                   />
                   <Input
-                    placeholder="Password"
+                    placeholder="Entrez votre Password"
+                    label="Password"
                     value={values.password}
                     onChange={handleChange}
                     name="password"

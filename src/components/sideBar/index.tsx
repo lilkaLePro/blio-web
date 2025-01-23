@@ -1,5 +1,5 @@
 import { NavLink } from './navLink';
-import { HandHelping, LayoutDashboard, LucideBook, LucideBookMinus, User } from 'lucide-react';
+import { HandHelping, LayoutDashboard, LucideBook, User } from 'lucide-react';
 
 const data = [
   { link: 'Overview', icon: LayoutDashboard, href: '/dashboard' },
