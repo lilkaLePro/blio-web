@@ -3,5 +3,5 @@ export interface BookProps {
   title: string;
   author?: string;
   categories: string;
-  stock: number;
+  stok: number;
 }

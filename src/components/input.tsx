@@ -14,6 +14,7 @@ interface InputProps {
   fullwidth?: boolean;
   error?: boolean;
   erroText?: string;
+  type?: string;
 }
 
 export const Input = ({
@@ -29,10 +30,11 @@ export const Input = ({
   fullwidth,
   erroText,
   error = false,
+  type = 'text'
 }: InputProps) => {
   return (
     <div>
-      <span className="text-xs bg-muted px-3 relative top-3 left-4"> {label} </span>
+      { label && <span className="text-xs bg-muted px-3 relative top-3 left-4"> {label} </span> }
       <input
         className={clsx(
           "text-sm rounded-lg p-3 border max-w-xl w-full placeholder:text-[#8C8C8C] placeholder:text-xs bg-transparent outline-none transition-all",
@@ -46,6 +48,7 @@ export const Input = ({
           },
           className
         )}
+        type={type}
         value={value}
         placeholder={placeholder}
         readOnly={readonly}

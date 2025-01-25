@@ -28,10 +28,10 @@ export const Books = () => {
       <div className=" flex flex-wrap gap-4 px-5">
       {data?.books?.map((book: BookProps) => {
         return <div key={book?._id}> 
-          <Card 
+          <Card
             categories={book?.categories}
             title={book?.title}
-            stock={book?.stock}
+            stok={book?.stok}
             author={book?.author}
             _id={book?._id}
           />
