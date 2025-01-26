@@ -6,14 +6,15 @@ import { useNavigate } from "react-router";
 import { useBook } from "./book.hook";
 import { useQuery } from "@tanstack/react-query";
 import { BookProps } from "@/lib/interfaces";
+import { userCurrentUserStore } from "@/main/auth/store";
 
 
 export const Books = () => {
-  
+  const id = userCurrentUserStore.use.id();
   const { useGetBooks } = useBook();
   const { data } = useQuery({
     queryKey: ['books'],
-    queryFn: async () => useGetBooks('678b9c995ff3c3775f765641'),
+    queryFn: async () => useGetBooks(id),
   })
   
   const navigate = useNavigate();
