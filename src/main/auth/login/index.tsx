@@ -1,43 +1,18 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { Formik } from "formik";
-import { IUser } from "../utils";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { BASE_URL } from "@/lib/utils";
+import { useAuthHook } from "../auth.hook";
 
 export const Login = () => {
-  const router = useNavigate();
 
-  const [values, setValues] = useState({ email: "", password: "" })
-  const mutation = useMutation({
-    mutationKey: ['login'],
-    mutationFn: async (formData: IUser) => {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData),
-      })
-      if(!response.ok) {
-        throw new Error('Failed to connectUser');
-      }
-      if(response.ok) {
-        setValues({email: '', password: ''})
-        router('/dashboard');
-      }
-      const data = await response.json();
-      return data;
-    }
-  })
+  const { loginMutation, values } = useAuthHook()
+
   return (
     <>
       <Formik
         initialValues={values}
         onSubmit={(values) => {
-          mutation.mutate(values)
+          loginMutation.mutate(values)
         }}
       >
         {({ values, errors, handleChange, handleSubmit }) => (

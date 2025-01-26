@@ -1,4 +1,5 @@
 import App from "@/App";
+import { ProtectedRoutes } from "@/components/protectedRoutes";
 import { Login } from "@/main/auth/login";
 import { Register } from "@/main/auth/register";
 import { Dashboard } from "@/main/dashboard";
@@ -13,16 +14,18 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
+      <>
         <App />
         <Outlet />
-      </div>
+      </>
     ),
   },
   {
     path: "/dashboard",
     element: (
-      <Dashboard />
+        <ProtectedRoutes>
+          <Dashboard />
+        </ProtectedRoutes>
     ),
     children: [
       {
