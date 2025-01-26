@@ -1,42 +1,16 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
-import { useMutation } from "@tanstack/react-query";
 import { Formik } from "formik";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { IUser, validate } from "../utils";
+import { useAuthHook } from "../auth.hook";
 
 export const Register = () => {
-  const router = useNavigate();
-
-  const [values, setValues] = useState({ firstname: "", lastname: "", email: "", password: "" })
-  const mutation = useMutation({
-    mutationKey: ['register'],
-    mutationFn: async (formData: IUser) => {      
-      const response = await fetch('http://localhost:4000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      })
-      if (!response.ok) {
-        throw new Error('Failed to create user');
-    }
-    if(response.ok){
-        setValues({firstname: "", lastname: "", email: "", password: ""})
-        router('/dashboard')
-    }
-    const data = await response.json();
-    return data;
-    }
-  })
+  const { registerMutation, values,  } = useAuthHook()
   return (
     <>
       <Formik
         initialValues={values}
         onSubmit={(values) => {
-          mutation.mutate(values);
+          registerMutation.mutate(values);
         }}
       >
         {({ values, errors, handleChange, handleSubmit }) => (
@@ -46,8 +20,10 @@ export const Register = () => {
           >
             <div className="max-w-md w-full flex flex-col bg-muted p-10 rounded-r-lg">
                 <p> Je m enregistre </p>
+                <div className="flex gap-3">
                 <Input
-                  placeholder="Firstname"
+                  placeholder="Entrez votre Prenom"
+                  label="Prenom"
                   name="firstname"
                   value={values.firstname}
                   onChange={handleChange}
@@ -55,15 +31,18 @@ export const Register = () => {
                   erroText={errors.firstname}
                 />
                 <Input
-                  placeholder="Lastname"
+                  placeholder="Entrez votre Lastname"
+                  label="Nom"
                   name="lastname"
                   value={values.lastname}
                   onChange={handleChange}
                   erroText={errors.lastname}
                   error={!!errors.lastname}
                 />
+                </div>
                 <Input
-                  placeholder="Email"
+                  placeholder="Entrez votre Email"
+                  label="Email"
                   name="email"
                   value={values.email}
                   onChange={handleChange}
@@ -71,7 +50,8 @@ export const Register = () => {
                   erroText={errors.email}
                 />
                 <Input
-                  placeholder="Password"
+                  placeholder="Entrez votre Password"
+                  label="Password"
                   name="password"
                   value={values.password}
                   onChange={handleChange}

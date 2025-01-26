@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { ChangeEvent } from "react";
 
 interface InputProps {
+  label?: string;
   value?: string;
   placeholder?: string;
   variant?: "default" | "ghost" | "lg" | "underline";
@@ -10,12 +11,14 @@ interface InputProps {
   onClick?: () => void;
   onChange?: (e: ChangeEvent<any>) => void;
   name?: string;
-  fullwidth?: boolean,
-  error?: boolean,
-  erroText?: string,
+  fullwidth?: boolean;
+  error?: boolean;
+  erroText?: string;
+  type?: string;
 }
 
 export const Input = ({
+  label,
   value,
   placeholder,
   onChange,
@@ -26,10 +29,12 @@ export const Input = ({
   name,
   fullwidth,
   erroText,
-  error = false
+  error = false,
+  type = 'text'
 }: InputProps) => {
   return (
     <div>
+      { label && <span className="text-xs bg-muted px-3 relative top-3 left-4"> {label} </span> }
       <input
         className={clsx(
           "text-sm rounded-lg p-3 border max-w-xl w-full placeholder:text-[#8C8C8C] placeholder:text-xs bg-transparent outline-none transition-all",
@@ -43,6 +48,7 @@ export const Input = ({
           },
           className
         )}
+        type={type}
         value={value}
         placeholder={placeholder}
         readOnly={readonly}
