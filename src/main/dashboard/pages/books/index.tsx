@@ -11,10 +11,12 @@ import { userCurrentUserStore } from "@/main/auth/store";
 
 export const Books = () => {
   const id = userCurrentUserStore.use.id();
-  const { useGetBooks } = useBook();
+  
+  const { useGetBooks } = useBook(id);
   const { data } = useQuery({
+    enabled: !!id,
     queryKey: ['books'],
-    queryFn: async () => useGetBooks(id),
+    queryFn: useGetBooks,
   })
   
   const navigate = useNavigate();

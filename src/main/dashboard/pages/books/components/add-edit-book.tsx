@@ -28,6 +28,7 @@ export const AddEditBook = () => {
               name="title"
               onChange={handleChange}
               value={values.title}
+              error={!!errors.title}
             />
             <Input
               label="auteur"

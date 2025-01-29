@@ -6,7 +6,7 @@ export const Card = ({title, categories, stok, author, _id} : BookProps ) => {
   
   return (
     <div className="p-3 border rounded-md cursor-pointer min-w-60" onClick={() => navigate(`/dashboard/books/${_id?.toString()}`) }>
-      <div className="h-52 border rounded-md bg-muted-foreground"></div>
+      <img src="/natio-negre-et-culture.png" alt="" className="h-40 w-32 m-auto" />
       <p className="py-1 font-semibold"> {title} </p>
       <div className="flex justify-between">
         <p className="text-muted-foreground text-sm"> {author} </p>
