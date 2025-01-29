@@ -16,13 +16,15 @@ const dataLinks = [
 export const SideBar = () => {
   const firstname = userCurrentUserStore((state) => state?.firstname);
   const lastName = userCurrentUserStore((state) => state?.lastname);
-  const updateLastname = userCurrentUserStore((state) => state?.setLastname);
-  const updateFirstname = userCurrentUserStore((state) => state?.setFirstname);
+  const updateLastname = userCurrentUserStore.use.setLastname();
+  const updateFirstname = userCurrentUserStore.use.setFirstname();
+  const updateID = userCurrentUserStore.use.setId() ;
 
   const { currentUserData, isCurrentUserLoading } = useAuthHook();
   useEffect(() => {
     updateFirstname(currentUserData?.user?.firstname);
     updateLastname(currentUserData?.user?.lastname);
+    updateID(currentUserData?.user?._id);
   }, [currentUserData])
   const user = {
     firstname: firstname,
