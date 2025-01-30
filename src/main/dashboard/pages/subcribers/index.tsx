@@ -1,32 +1,25 @@
-const data = ["Kaly Diallo", "770171389", "Etudiant", "kaly100diallo@gmail.com"]
-const datahead = ["Nom Complet", "Num", "Function", "Email"]
+import Table from "@/components/table/table"
+import { useSubscriberColumn } from "./data"
+import { useSubcriber } from "./subscribers.hook";
+import { userCurrentUserStore } from "@/main/auth/store";
+
 
 export const Subscribers = () => {
+  
+  const id = userCurrentUserStore.use.id();
+
+  const column = useSubscriberColumn();
+  const { allSubcribers } = useSubcriber(id)
+
+  const SubcribersData = allSubcribers;
+  
+
   return (
     <div>
-      <div className="h-32 border"></div>
-      <table className="max-w-4xl m-auto w-full">
-        <thead>
-          <tr className="border grid grid-cols-4">
-            {datahead.map((data, index) => (
-              <td key={index} className="px-3"> {data} </td>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="grid grid-cols-4 border mt-3">
-            {data.map((data, index) => (
-              <td key={index} className="px-3 py-2" > {data} </td>
-            ))}
-            {data.map((data, index) => (
-              <td key={index} className="px-3 py-2" > {data} </td>
-            ))}
-            {data.map((data, index) => (
-              <td key={index} className="px-3 py-2" > {data} </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+      <Table 
+        columns={column}
+        data={SubcribersData}
+      />
     </div>
   )
 }
