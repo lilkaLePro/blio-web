@@ -19,7 +19,7 @@ function Table<T>({ columns, data: incomData }: TableProps<T>) {
       </thead>
       <tbody>
         {data?.map((item, index) => (
-          <TableRow data={item} key={index}>
+          <TableRow key={index}>
             {columns?.map(({ render, key }, index) => (
               <TableCell key={key || index}>{render ? render(item) : key}</TableCell>
             ))}

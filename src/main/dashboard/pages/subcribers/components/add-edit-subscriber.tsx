@@ -31,12 +31,14 @@ export const AddEditSubscriber = () => {
                 value={values?.firstname}
                 label="Firstname*"
                 onChange={handleChange}
+                error={!!errors}
               />
               <Input
                 name="lastname"
                 value={values?.lastname}
                 label="Lastname*"
                 onChange={handleChange}
+                error={!!errors}
               />
             </div>
             <Input
@@ -44,6 +46,7 @@ export const AddEditSubscriber = () => {
               label="Email"
               value={values?.email}
               onChange={handleChange}
+              error={!!errors}
             />
             <div className="flex gap-3">
               <Input
@@ -51,12 +54,14 @@ export const AddEditSubscriber = () => {
                 label="Téléphone"
                 value={values?.phoneNumber}
                 onChange={handleChange}
+                error={!!errors}
               />
               <Input
                 name="job"
                 label="job"
                 value={values?.job}
                 onChange={handleChange}
+                error={!!errors}
               />
             </div>
             <Button className="w-full"> Ajouter </Button>

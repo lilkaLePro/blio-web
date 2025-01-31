@@ -1,10 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { BASE_URL } from '@/lib/utils';
 import { IUser } from './utils';
 import { useCookies } from 'react-cookie';
-import { userCurrentUserStore } from './store';
 
 export const useAuthHook = () => {
   const [cookies, setCookies] = useCookies(['BLIUSER']);
