@@ -17,6 +17,8 @@ export const Books = () => {
     enabled: !!id,
     queryKey: ['books'],
     queryFn: useGetBooks,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   })
   
   const navigate = useNavigate();

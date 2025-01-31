@@ -8,6 +8,7 @@ import { AddEditBook } from "@/main/dashboard/pages/books/components/add-edit-bo
 import { BookDetails } from "@/main/dashboard/pages/books/details";
 import { Overview } from "@/main/dashboard/pages/overview";
 import { Subscribers } from "@/main/dashboard/pages/subcribers";
+import { AddEditSubscriber } from "@/main/dashboard/pages/subcribers/components/add-edit-subscriber";
 import { createBrowserRouter, Outlet } from "react-router";
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/subcribers',
         element: <Subscribers />
+      },
+      {
+        path: '/dashboard/subcribers/add',
+        element: <AddEditSubscriber />
       },
 
     ]

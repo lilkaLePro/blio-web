@@ -7,7 +7,7 @@ interface TableRowProps<T> {
 
 function TableRow <T>({data, children}: TableRowProps<T>) {
   return (
-    <tr className="border h-10 w-full">
+    <tr className="border-b border-gray-200 hover:bg-gray-50">
       {children}
     </tr>
   )

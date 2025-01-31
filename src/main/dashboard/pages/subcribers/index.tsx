@@ -16,6 +16,9 @@ export const Subscribers = () => {
 
   return (
     <div>
+      <div className="border h-32 my-3">
+
+      </div>
       <Table 
         columns={column}
         data={SubcribersData}
