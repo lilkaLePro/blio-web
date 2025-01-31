@@ -11,4 +11,23 @@ export const useSubscriberColumn = (): ColumnsDef<any>[] => [
     key: "lastname",
     render: ({lastname}) => lastname
   },
+  {
+    title: "Email",
+    key: "email",
+    render: ({email}) => email
+  },
+  {
+    title: "Numero",
+    key: "email",
+    render: ({phoneNumber}) => phoneNumber
+  }
 ]
+
+export interface SubscribersProps {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  job: string;
+  userId?: string
+}

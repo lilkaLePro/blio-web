@@ -1,8 +1,10 @@
-import { BookProps } from "@/lib/interfaces";
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router";
 
-export const useBook = (id: string) => {
+export const useBook = (id?: string) => {
+  const location = useLocation();
+  
   const useGetBooks = async () => {
     try {
       const response = await fetch(`${BASE_URL}/books/books/${id}`, {
@@ -29,9 +31,11 @@ export const useBook = (id: string) => {
   }
 
   const { data: bookData } = useQuery({
-    enabled: !!id,
+    enabled: location.pathname !== 'dashboard/hooks',
     queryKey: ['bookById'],
     queryFn: useGetBook,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   })
 
   return {

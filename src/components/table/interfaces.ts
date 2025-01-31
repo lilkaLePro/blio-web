@@ -6,7 +6,7 @@ export interface ColumnsDef<T> {
   render?: (data: T) => ReactNode;
 }
 
-export interface TableProps<T, M = any> {
+export interface TableProps<T> {
   columns: ColumnsDef<T>[];
   data: T[];
 };

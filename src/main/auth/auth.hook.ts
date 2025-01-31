@@ -80,8 +80,10 @@ export const useAuthHook = () => {
   const { data: currentUserData, isLoading: isCurrentUserLoading } = useQuery({
     queryKey: ['currentUser'],
     queryFn: fetchUser,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   });
-
+  
   return {
     router,
     loginMutation,

@@ -5,7 +5,7 @@ export const useSubcriber = (id: string) => {
   
   const useGetSubscribers = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/subscriber/user/${"678b9c995ff3c3775f765641"}`, {
+      const response = await fetch(`${BASE_URL}/subscriber/user/${id}`, {
         method: 'GET',
       });
       const data = await response.json();
@@ -19,7 +19,9 @@ export const useSubcriber = (id: string) => {
   const { data: allSubcribers } = useQuery({
     queryKey: ['getSubcribers'],
     queryFn: useGetSubscribers,
-    // enabled: !!id,
+    enabled: !!id,
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
   })
 
   return {

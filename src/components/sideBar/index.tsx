@@ -20,12 +20,13 @@ export const SideBar = () => {
   const updateFirstname = userCurrentUserStore.use.setFirstname();
   const updateID = userCurrentUserStore.use.setId() ;
 
-  const { currentUserData, isCurrentUserLoading } = useAuthHook();
+  const { currentUserData } = useAuthHook();
   useEffect(() => {
     updateFirstname(currentUserData?.user?.firstname);
     updateLastname(currentUserData?.user?.lastname);
     updateID(currentUserData?.user?._id);
-  }, [currentUserData])
+  }, [currentUserData]);
+  
   const user = {
     firstname: firstname,
     lastname: lastName,
