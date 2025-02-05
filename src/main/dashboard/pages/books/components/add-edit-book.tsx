@@ -60,7 +60,7 @@ export const AddEditBook = () => {
               onChange={handleChange}
               value={values?.categories}
             />
-            <Button className="w-full"> Ajouter </Button>
+            <Button className="w-full" type='submit'> Ajouter </Button>
           </div>
         </form>
       )}

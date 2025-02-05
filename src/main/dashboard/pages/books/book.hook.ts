@@ -1,9 +1,7 @@
 import { BASE_URL } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router";
 
 export const useBook = (id?: string) => {
-  const location = useLocation();
   
   const useGetBooks = async () => {
     try {
@@ -28,18 +26,31 @@ export const useBook = (id?: string) => {
     }catch (error) {
       throw error
     }
-  }
+  };
 
-  const { data: bookData } = useQuery({
-    enabled: location.pathname !== 'dashboard/hooks',
-    queryKey: ['bookById'],
-    queryFn: useGetBook,
+  const useGetBookCounts = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/books/counts/${id}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      throw error
+    }
+  }
+  const { data: booksCounts } = useQuery({
+    enabled: !!id,
+    queryKey: ['bookCount'],
+    queryFn: useGetBookCounts,
     staleTime: 60000,
     refetchOnWindowFocus: false,
-  })
+  })  
 
   return {
     useGetBooks,
-    bookData
+    useGetBook,
+    booksCounts
   }
 }

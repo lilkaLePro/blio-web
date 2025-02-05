@@ -69,15 +69,18 @@ export const useAuthHook = () => {
       const response = await fetch(`${BASE_URL}/auth/me`, {
         method: 'GET',
         credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${cookies.BLIUSER}`
+        }
       });
-      const data = response.json();
+      const data = await response.json();
 
       return data;
     } catch (error) {
       throw error;
     }
   };
-  const { data: currentUserData, isLoading: isCurrentUserLoading } = useQuery({
+  const { data: currentUserData, isLoading: isCurrentUserLoading, error: isCurrentUserError } = useQuery({
     queryKey: ['currentUser'],
     queryFn: fetchUser,
     staleTime: 60000,
@@ -92,5 +95,6 @@ export const useAuthHook = () => {
     cookies,
     currentUserData,
     isCurrentUserLoading,
+    isCurrentUserError,
   };
 };
