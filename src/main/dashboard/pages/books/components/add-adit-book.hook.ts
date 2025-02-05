@@ -3,6 +3,7 @@ import { BASE_URL } from "@/lib/utils"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import { useNavigate } from "react-router"
+import { toast } from 'sonner'
 
 export const useAddEditBook = (userId?: string) => {
  
@@ -42,7 +43,11 @@ export const useAddEditBook = (userId?: string) => {
     },
     onSuccess: async () => {
       navigate(-1)
-    }
+      toast.success('Vous avez ajouté un livre.')
+    },
+    onError: async () => {
+      toast.error('Echec lors de lq creation, réssayez !')
+    },
   })
   
   return {

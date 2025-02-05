@@ -8,7 +8,7 @@ export const ProtectedRoutes = ({children}: {children: React.ReactNode}) => {
   const [cookies ] = useCookies(['BLIUSER']);
   const navigate = useNavigate();
   const { currentUserData, isCurrentUserLoading, isCurrentUserError } = useAuthHook();
-  console.log(document.cookie);
+
   if (isCurrentUserLoading) {
     return (
       <div>LOADING...</div>

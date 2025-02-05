@@ -5,19 +5,14 @@ import { Button } from '@/components/button';
 import { userCurrentUserStore } from '@/main/auth/store';
 
 export const AddEditSubscriber = () => {
-  const id = userCurrentUserStore.use.id();
-  console.log(id);
+  const userId = userCurrentUserStore.use.id();
   
-  const { values, addSubscriber } = useSubscriber(id);
+  const { values, addSubscriber } = useSubscriber(userId);
 
   return (
     <Formik
       initialValues={values}
       onSubmit={(values) => {
-        if (id.length < 1) {
-          console.error('userId not available');
-          return
-        }
         addSubscriber.mutate(values);
       }}
     >
@@ -31,14 +26,14 @@ export const AddEditSubscriber = () => {
                 value={values?.firstname}
                 label="Firstname*"
                 onChange={handleChange}
-                error={!!errors}
+                error={!!errors?.firstname}
               />
               <Input
                 name="lastname"
                 value={values?.lastname}
                 label="Lastname*"
                 onChange={handleChange}
-                error={!!errors}
+                error={!!errors?.firstname}
               />
             </div>
             <Input
@@ -46,7 +41,7 @@ export const AddEditSubscriber = () => {
               label="Email"
               value={values?.email}
               onChange={handleChange}
-              error={!!errors}
+              error={!!errors?.email}
             />
             <div className="flex gap-3">
               <Input
@@ -54,14 +49,14 @@ export const AddEditSubscriber = () => {
                 label="Téléphone"
                 value={values?.phoneNumber}
                 onChange={handleChange}
-                error={!!errors}
+                error={!!errors?.phoneNumber}
               />
               <Input
                 name="job"
                 label="job"
                 value={values?.job}
                 onChange={handleChange}
-                error={!!errors}
+                error={!!errors?.job}
               />
             </div>
             <Button className="w-full"> Ajouter </Button>
